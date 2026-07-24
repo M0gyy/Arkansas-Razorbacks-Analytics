@@ -50,7 +50,7 @@ export default function App() {
             <YearlyTrendChart
               seasons={RAZORBACKS_SEASONS}
               selectedUnit={selectedUnit}
-              onSelectSeason={(yr) => {
+              onSelectSeason={(yr: number) => {
                 setSelectedSeason(yr);
                 setActiveTab('games');
               }}
@@ -60,7 +60,7 @@ export default function App() {
               <PassVsRushChart seasons={RAZORBACKS_SEASONS} />
               <QuadrantChart
                 seasons={RAZORBACKS_SEASONS}
-                onSelectSeason={(yr) => {
+                onSelectSeason={(yr: number) => {
                   setSelectedSeason(yr);
                   setActiveTab('games');
                 }}
