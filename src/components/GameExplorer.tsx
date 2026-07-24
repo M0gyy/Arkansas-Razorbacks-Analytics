@@ -124,14 +124,14 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
       {/* Header & Controls */}
       <div className="flex flex-col lg:flex-row lg:items-center justify-between pb-4 border-b border-neutral-800 gap-4 mb-5">
         <div>
-          <h2 className="text-lg font-bold text-white flex items-center gap-2">
+          <h2 className="text-xl font-bold text-white flex items-center gap-2">
             <Trophy className="w-5 h-5 text-red-500" />
             <span>Game-by-Game EPA Log</span>
-            <span className="text-xs font-normal text-neutral-400 bg-neutral-800 px-2.5 py-0.5 rounded-full">
+            <span className="text-xs font-semibold text-neutral-300 bg-neutral-800 px-2.5 py-0.5 rounded-full">
               {filteredGames.length} Games
             </span>
           </h2>
-          <p className="text-xs text-neutral-400 mt-0.5">
+          <p className="text-sm text-neutral-400 mt-0.5">
             Statistical EPA per play breakdown for every Arkansas football game since 2014
           </p>
         </div>
@@ -142,7 +142,7 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
           <select
             value={selectedSeason}
             onChange={(e) => onSelectSeason(e.target.value === 'ALL' ? 'ALL' : Number(e.target.value))}
-            className="bg-neutral-800 border border-neutral-700 text-xs font-semibold text-white px-3 py-2 rounded-lg focus:outline-none"
+            className="bg-neutral-800 border border-neutral-700 text-xs sm:text-sm font-semibold text-white px-3 py-2 rounded-lg focus:outline-none"
           >
             <option value="ALL">All Seasons</option>
             {seasons.map((s) => (
@@ -154,21 +154,21 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
 
           {/* Search Box */}
           <div className="relative">
-            <Search className="w-3.5 h-3.5 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
+            <Search className="w-4 h-4 text-neutral-400 absolute left-3 top-1/2 -translate-y-1/2" />
             <input
               type="text"
               placeholder="Search opponent..."
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
-              className="bg-neutral-800 border border-neutral-700 text-xs text-white pl-8 pr-3 py-2 rounded-lg focus:outline-none focus:border-red-500 w-36 sm:w-44"
+              className="bg-neutral-800 border border-neutral-700 text-xs sm:text-sm text-white pl-8 pr-3 py-2 rounded-lg focus:outline-none focus:border-red-500 w-36 sm:w-44"
             />
           </div>
 
           {/* Win/Loss Filter */}
-          <div className="flex items-center space-x-1 bg-neutral-950 p-1 rounded-lg border border-neutral-800 text-xs">
+          <div className="flex items-center space-x-1 bg-neutral-950 p-1 rounded-lg border border-neutral-800 text-xs sm:text-sm">
             <button
               onClick={() => setResultFilter('ALL')}
-              className={`px-2 py-1 rounded transition-all ${
+              className={`px-2.5 py-1 rounded transition-all ${
                 resultFilter === 'ALL' ? 'bg-neutral-800 text-white font-semibold' : 'text-neutral-400 hover:text-white'
               }`}
             >
@@ -176,7 +176,7 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
             </button>
             <button
               onClick={() => setResultFilter('W')}
-              className={`px-2 py-1 rounded transition-all ${
+              className={`px-2.5 py-1 rounded transition-all ${
                 resultFilter === 'W' ? 'bg-emerald-900/80 text-emerald-300 font-semibold' : 'text-neutral-400 hover:text-white'
               }`}
             >
@@ -184,7 +184,7 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
             </button>
             <button
               onClick={() => setResultFilter('L')}
-              className={`px-2 py-1 rounded transition-all ${
+              className={`px-2.5 py-1 rounded transition-all ${
                 resultFilter === 'L' ? 'bg-rose-900/80 text-rose-300 font-semibold' : 'text-neutral-400 hover:text-white'
               }`}
             >
@@ -193,8 +193,8 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
           </div>
 
           {/* Sort Selector */}
-          <div className="flex items-center space-x-1 bg-neutral-800 border border-neutral-700 rounded-lg px-2.5 py-1.5 text-xs text-neutral-300">
-            <ArrowUpDown className="w-3.5 h-3.5 text-neutral-400" />
+          <div className="flex items-center space-x-1 bg-neutral-800 border border-neutral-700 rounded-lg px-2.5 py-2 text-xs sm:text-sm text-neutral-300">
+            <ArrowUpDown className="w-4 h-4 text-neutral-400" />
             <select
               value={sortBy}
               onChange={(e) => setSortBy(e.target.value as any)}
@@ -211,10 +211,10 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
           <button
             onClick={handleDownloadCSV}
             disabled={filteredGames.length === 0}
-            className="flex items-center space-x-1.5 bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs font-semibold px-3 py-2 rounded-lg transition-all shadow-sm shrink-0"
+            className="flex items-center space-x-1.5 bg-red-600 hover:bg-red-700 disabled:opacity-50 disabled:cursor-not-allowed text-white text-xs sm:text-sm font-semibold px-3 py-2 rounded-lg transition-all shadow-sm shrink-0"
             title="Export filtered EPA game data to CSV"
           >
-            <Download className="w-3.5 h-3.5" />
+            <Download className="w-4 h-4" />
             <span>Download CSV</span>
           </button>
         </div>
@@ -257,11 +257,11 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
                         }`}>
                           {game.result} {game.arkansasScore} - {game.opponentScore}
                         </span>
-                        <h3 className="text-sm font-bold text-white">
+                        <h3 className="text-base font-bold text-white">
                           {game.isHome ? 'vs' : '@'} {game.opponent}
                         </h3>
                       </div>
-                      <p className="text-[11px] text-neutral-400 mt-1">
+                      <p className="text-xs text-neutral-400 mt-1">
                         {game.season} Week {game.week} • {game.date} • Coach: {game.seasonCoach}
                       </p>
                     </div>
@@ -270,8 +270,8 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
                   {/* Middle Column: Key EPA Metrics */}
                   <div className="grid grid-cols-3 gap-3 md:gap-6 text-center border-t md:border-t-0 border-neutral-800 pt-3 md:pt-0">
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-neutral-500 block">Offense EPA</span>
-                      <span className={`text-sm font-mono font-extrabold ${
+                      <span className="text-xs uppercase font-bold text-neutral-500 block">Offense EPA</span>
+                      <span className={`text-base font-mono font-extrabold ${
                         game.offenseEpaPerPlay >= 0.1 ? 'text-emerald-400' : game.offenseEpaPerPlay >= 0 ? 'text-emerald-300' : 'text-rose-400'
                       }`}>
                         {game.offenseEpaPerPlay > 0 ? `+${game.offenseEpaPerPlay}` : game.offenseEpaPerPlay}
@@ -279,8 +279,8 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
                     </div>
 
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-neutral-500 block">Defense EPA</span>
-                      <span className={`text-sm font-mono font-extrabold ${
+                      <span className="text-xs uppercase font-bold text-neutral-500 block">Defense EPA</span>
+                      <span className={`text-base font-mono font-extrabold ${
                         game.defenseEpaPerPlay <= 0 ? 'text-emerald-400' : 'text-amber-400'
                       }`}>
                         {game.defenseEpaPerPlay > 0 ? `+${game.defenseEpaPerPlay}` : game.defenseEpaPerPlay}
@@ -288,8 +288,8 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
                     </div>
 
                     <div>
-                      <span className="text-[10px] uppercase font-bold text-neutral-500 block">Net Total</span>
-                      <span className={`text-sm font-mono font-extrabold ${
+                      <span className="text-xs uppercase font-bold text-neutral-500 block">Net Total</span>
+                      <span className={`text-base font-mono font-extrabold ${
                         game.netEpaPerPlay >= 0 ? 'text-red-400' : 'text-neutral-400'
                       }`}>
                         {game.netEpaPerPlay > 0 ? `+${game.netEpaPerPlay}` : game.netEpaPerPlay}
@@ -299,7 +299,7 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
 
                   {/* Right Column: Expand Icon */}
                   <div className="flex items-center justify-end">
-                    <button className="text-neutral-400 hover:text-white text-xs flex items-center space-x-1">
+                    <button className="text-neutral-300 hover:text-white text-xs sm:text-sm font-semibold flex items-center space-x-1">
                       <span className="hidden sm:inline font-medium">{isExpanded ? 'Hide Details' : 'View Breakdown'}</span>
                       {isExpanded ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
                     </button>
@@ -308,29 +308,29 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
 
                 {/* Expanded Detailed Play Analysis */}
                 {isExpanded && (
-                  <div className="bg-neutral-900/90 border-t border-neutral-800 p-4 text-xs space-y-3">
+                  <div className="bg-neutral-900/90 border-t border-neutral-800 p-4 text-xs sm:text-sm space-y-3">
                     <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 bg-neutral-950 p-3 rounded-lg border border-neutral-800">
                       <div>
-                        <span className="text-neutral-400 block font-medium">Passing EPA/play</span>
-                        <span className="text-emerald-400 font-mono font-bold text-sm">
+                        <span className="text-neutral-400 block font-medium text-xs">Passing EPA/play</span>
+                        <span className="text-emerald-400 font-mono font-bold text-base">
                           {game.passEpaPerPlay > 0 ? `+${game.passEpaPerPlay}` : game.passEpaPerPlay}
                         </span>
                       </div>
                       <div>
-                        <span className="text-neutral-400 block font-medium">Rushing EPA/play</span>
-                        <span className="text-teal-400 font-mono font-bold text-sm">
+                        <span className="text-neutral-400 block font-medium text-xs">Rushing EPA/play</span>
+                        <span className="text-teal-400 font-mono font-bold text-base">
                           {game.rushEpaPerPlay > 0 ? `+${game.rushEpaPerPlay}` : game.rushEpaPerPlay}
                         </span>
                       </div>
                       <div>
-                        <span className="text-neutral-400 block font-medium">Offense Success Rate</span>
-                        <span className="text-sky-300 font-mono font-bold text-sm">
+                        <span className="text-neutral-400 block font-medium text-xs">Offense Success Rate</span>
+                        <span className="text-sky-300 font-mono font-bold text-base">
                           {game.offenseSuccessRate}%
                         </span>
                       </div>
                       <div>
-                        <span className="text-neutral-400 block font-medium">Explosive Play Rate</span>
-                        <span className="text-amber-300 font-mono font-bold text-sm">
+                        <span className="text-neutral-400 block font-medium text-xs">Explosive Play Rate</span>
+                        <span className="text-amber-300 font-mono font-bold text-base">
                           {game.explosivePlayRate}%
                         </span>
                       </div>
@@ -338,20 +338,26 @@ export const GameExplorer: React.FC<GameExplorerProps> = ({
 
                     <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 text-neutral-300">
                       <div className="bg-neutral-950 p-2.5 rounded border border-neutral-800">
-                        <span className="text-neutral-500 font-semibold block text-[11px]">Special Teams EPA</span>
-                        <span className="font-mono font-bold text-sky-400">
+                        <span className="text-neutral-400 font-semibold block text-xs">Special Teams EPA</span>
+                        <span className="font-mono font-bold text-sky-400 text-sm">
                           {game.specialTeamsEpaPerPlay > 0 ? `+${game.specialTeamsEpaPerPlay}` : game.specialTeamsEpaPerPlay}
                         </span>
                       </div>
                       <div className="bg-neutral-950 p-2.5 rounded border border-neutral-800">
-                        <span className="text-neutral-500 font-semibold block text-[11px]">Defense Success Rate Allowed</span>
-                        <span className="font-mono font-bold text-amber-300">
-                          {game.defenseSuccessRate}%
-                        </span>
+                        <span className="text-neutral-400 font-semibold block text-xs">Stuff Rate / Opp Rate</span>
+                        <div className="font-mono font-bold text-sm flex items-center gap-2 mt-0.5">
+                          <span className="text-rose-400" title="Stuff Rate (run <=0 yds)">
+                            Stuff: {game.stuffRate ?? 16.5}%
+                          </span>
+                          <span className="text-neutral-600">•</span>
+                          <span className="text-emerald-400" title="Opportunity Rate (run >=4 yds)">
+                            Opp: {game.opportunityRate ?? 48.0}%
+                          </span>
+                        </div>
                       </div>
                       <div className="bg-neutral-950 p-2.5 rounded border border-neutral-800">
-                        <span className="text-neutral-500 font-semibold block text-[11px]">Turnover EPA Margin</span>
-                        <span className={`font-mono font-bold ${
+                        <span className="text-neutral-400 font-semibold block text-xs">Turnover EPA Margin</span>
+                        <span className={`font-mono font-bold text-sm ${
                           game.turnoverEpaMargin >= 0 ? 'text-emerald-400' : 'text-rose-400'
                         }`}>
                           {game.turnoverEpaMargin > 0 ? `+${game.turnoverEpaMargin}` : game.turnoverEpaMargin} points
