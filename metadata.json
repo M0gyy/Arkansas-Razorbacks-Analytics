@@ -1,0 +1,6 @@
+{
+  "name": "Arkansas Razorbacks Football EPA Tracker",
+  "description": "Visual and statistical tracking of Arkansas Razorbacks EPA per play across offense, defense, and special teams from 2014 to present.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
