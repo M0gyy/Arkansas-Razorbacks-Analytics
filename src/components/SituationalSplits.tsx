@@ -51,6 +51,19 @@ export const SituationalSplits: React.FC = () => {
               </div>
             </div>
 
+            {split.stuffRate !== undefined && split.opportunityRate !== undefined && (
+              <div className="grid grid-cols-2 gap-2 text-[11px] pt-1">
+                <div className="bg-neutral-900/60 px-2 py-1.5 rounded border border-neutral-800/80 flex items-center justify-between">
+                  <span className="text-neutral-400">Stuff Rate:</span>
+                  <span className="font-mono font-bold text-rose-300">{split.stuffRate}%</span>
+                </div>
+                <div className="bg-neutral-900/60 px-2 py-1.5 rounded border border-neutral-800/80 flex items-center justify-between">
+                  <span className="text-neutral-400">Opp Rate:</span>
+                  <span className="font-mono font-bold text-emerald-300">{split.opportunityRate}%</span>
+                </div>
+              </div>
+            )}
+
             {/* Visual Success Bar */}
             <div>
               <div className="flex justify-between text-[11px] text-neutral-400 mb-1">

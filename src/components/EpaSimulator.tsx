@@ -9,6 +9,8 @@ export const EpaSimulator: React.FC = () => {
   const [rushYards, setRushYards] = useState<number>(195);
   const [rushAtt, setRushAtt] = useState<number>(38);
   const [rushTds, setRushTds] = useState<number>(2);
+  const [stuffRate, setStuffRate] = useState<number>(15);
+  const [opportunityRate, setOpportunityRate] = useState<number>(51);
   const [turnoversLost, setTurnoversLost] = useState<number>(1);
   const [sacksAllowed, setSacksAllowed] = useState<number>(2);
   const [oppPassYards, setOppPassYards] = useState<number>(210);
@@ -25,9 +27,9 @@ export const EpaSimulator: React.FC = () => {
     ? ((passYpa - 6.8) * 0.05) + (passTds * 0.18) - (ints * 0.35)
     : 0;
 
-  // Rushing EPA estimate: baseline ~0.0 per play at 4.2 YPC, +0.05 per YPC above 4.2, +0.20 per TD
+  // Rushing EPA estimate: baseline ~0.0 per play at 4.2 YPC, +0.05 per YPC above 4.2, +0.20 per TD, stuff penalty & opp bonus
   const rawRushEpa = rushAtt > 0
-    ? ((rushYpc - 4.2) * 0.04) + (rushTds * 0.15) - (turnoversLost * 0.25)
+    ? ((rushYpc - 4.2) * 0.04) + (rushTds * 0.15) - (turnoversLost * 0.25) - ((stuffRate - 17) * 0.005) + ((opportunityRate - 48) * 0.004)
     : 0;
 
   // Combined Offensive EPA per play
@@ -143,7 +145,7 @@ export const EpaSimulator: React.FC = () => {
           {/* Rushing Inputs */}
           <div className="bg-neutral-950 p-4 rounded-xl border border-neutral-800 space-y-3">
             <h3 className="text-xs font-bold text-teal-400 uppercase tracking-wider">Rushing Attack</h3>
-            <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 text-xs">
+            <div className="grid grid-cols-2 sm:grid-cols-5 gap-3 text-xs">
               <div>
                 <label className="text-neutral-400 block mb-1">Rush Yards: {rushYards}</label>
                 <input
@@ -156,7 +158,7 @@ export const EpaSimulator: React.FC = () => {
                 />
               </div>
               <div>
-                <label className="text-neutral-400 block mb-1">Rush Attempts: {rushAtt}</label>
+                <label className="text-neutral-400 block mb-1">Rush Att: {rushAtt}</label>
                 <input
                   type="range"
                   min="20"
@@ -175,6 +177,28 @@ export const EpaSimulator: React.FC = () => {
                   value={rushTds}
                   onChange={(e) => setRushTds(Number(e.target.value))}
                   className="w-full accent-teal-500 cursor-pointer"
+                />
+              </div>
+              <div>
+                <label className="text-neutral-400 block mb-1">Stuff Rate: {stuffRate}%</label>
+                <input
+                  type="range"
+                  min="5"
+                  max="35"
+                  value={stuffRate}
+                  onChange={(e) => setStuffRate(Number(e.target.value))}
+                  className="w-full accent-rose-500 cursor-pointer"
+                />
+              </div>
+              <div>
+                <label className="text-neutral-400 block mb-1">Opp Rate: {opportunityRate}%</label>
+                <input
+                  type="range"
+                  min="20"
+                  max="70"
+                  value={opportunityRate}
+                  onChange={(e) => setOpportunityRate(Number(e.target.value))}
+                  className="w-full accent-emerald-500 cursor-pointer"
                 />
               </div>
             </div>

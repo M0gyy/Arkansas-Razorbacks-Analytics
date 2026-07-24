@@ -25,29 +25,77 @@ export const QuadrantChart: React.FC<QuadrantChartProps> = ({ seasons, onSelectS
     netEpa: Number(s.netEpaPerPlay.toFixed(3)),
     record: s.record,
     coach: s.headCoach,
+    offSuccessRate: s.offenseSuccessRate,
+    defSuccessRate: s.defenseSuccessRate,
+    natlRank: s.nationalRankNetEpa,
+    bowl: s.bowlGame ? `${s.bowlGame}: ${s.bowlResult}` : null,
     size: Math.abs(s.netEpaPerPlay) * 300 + 100
   }));
+
+  const getQuadrantLabel = (off: number, def: number) => {
+    if (off >= 0 && def <= 0) return { label: 'QUAD 1: ELITE OVERALL', color: 'text-emerald-400 bg-emerald-950 border-emerald-800' };
+    if (off < 0 && def <= 0) return { label: 'QUAD 2: DEFENSIVE BATTLE', color: 'text-amber-400 bg-amber-950 border-amber-800' };
+    if (off >= 0 && def > 0) return { label: 'QUAD 3: HIGH-SCORING SHOOTOUT', color: 'text-sky-400 bg-sky-950 border-sky-800' };
+    return { label: 'QUAD 4: STRUGGLING', color: 'text-rose-400 bg-rose-950 border-rose-800' };
+  };
 
   const CustomTooltip = ({ active, payload }: any) => {
     if (active && payload && payload.length) {
       const d = payload[0].payload;
+      const quad = getQuadrantLabel(d.offenseEpa, d.defenseEpa);
+
       return (
-        <div className="bg-neutral-900 border border-neutral-700/80 p-3 rounded-lg shadow-xl text-xs backdrop-blur-md">
-          <div className="font-bold text-white text-sm mb-1">{d.season} Razorbacks ({d.record})</div>
-          <p className="text-neutral-400 mb-2">Coach: {d.coach}</p>
-          <div className="space-y-1">
-            <div className="text-emerald-400 flex justify-between gap-4">
-              <span>Offense EPA:</span>
-              <span className="font-mono font-bold">{d.offenseEpa > 0 ? `+${d.offenseEpa}` : d.offenseEpa}</span>
+        <div className="bg-neutral-900/95 border border-neutral-700/80 p-3.5 rounded-xl shadow-2xl text-xs backdrop-blur-md max-w-xs ring-1 ring-white/10">
+          <div className="flex items-center justify-between font-bold text-white mb-1 pb-1.5 border-b border-neutral-800">
+            <span className="text-sm">{d.season} Razorbacks</span>
+            <span className="text-red-400 font-extrabold">{d.record}</span>
+          </div>
+
+          <div className="flex items-center justify-between my-2">
+            <span className="text-neutral-400 text-[11px]">Coach: <span className="text-neutral-200 font-medium">{d.coach}</span></span>
+            <span className={`text-[10px] font-bold px-2 py-0.5 rounded border ${quad.color}`}>
+              {quad.label.split(':')[0]}
+            </span>
+          </div>
+
+          <div className="space-y-1.5 font-sans">
+            <div className="bg-neutral-950 p-2 rounded-lg border border-neutral-800/80 space-y-1">
+              <div className="text-emerald-400 font-bold flex justify-between gap-4">
+                <span>Offense EPA / play:</span>
+                <span className="font-mono">{d.offenseEpa > 0 ? `+${d.offenseEpa}` : d.offenseEpa}</span>
+              </div>
+              <div className="text-neutral-400 text-[10px] flex justify-between">
+                <span>Offense Success Rate:</span>
+                <span className="font-mono text-neutral-300">{d.offSuccessRate}%</span>
+              </div>
             </div>
-            <div className="text-amber-400 flex justify-between gap-4">
-              <span>Defense EPA Allowed:</span>
-              <span className="font-mono font-bold">{d.defenseEpa > 0 ? `+${d.defenseEpa}` : d.defenseEpa}</span>
+
+            <div className="bg-neutral-950 p-2 rounded-lg border border-neutral-800/80 space-y-1">
+              <div className="text-amber-400 font-bold flex justify-between gap-4">
+                <span>Defense EPA Allowed:</span>
+                <span className="font-mono">{d.defenseEpa > 0 ? `+${d.defenseEpa}` : d.defenseEpa}</span>
+              </div>
+              <div className="text-neutral-400 text-[10px] flex justify-between">
+                <span>Def Success Rate Allowed:</span>
+                <span className="font-mono text-neutral-300">{d.defSuccessRate}%</span>
+              </div>
             </div>
-            <div className="text-red-400 font-bold flex justify-between gap-4 pt-1 border-t border-neutral-800">
-              <span>Net EPA:</span>
-              <span className="font-mono">{d.netEpa > 0 ? `+${d.netEpa}` : d.netEpa}</span>
+
+            <div className="pt-1.5 border-t border-neutral-800 flex justify-between items-center text-red-400 font-bold">
+              <span>Net EPA Margin:</span>
+              <span className="font-mono text-sm">{d.netEpa > 0 ? `+${d.netEpa}` : d.netEpa}</span>
             </div>
+
+            <div className="text-neutral-400 text-[10px] flex justify-between pt-0.5">
+              <span>National Net EPA Rank:</span>
+              <span className="font-mono font-bold text-white">#{d.natlRank} in FBS</span>
+            </div>
+
+            {d.bowl && (
+              <div className="mt-2 pt-1 border-t border-neutral-800 text-[10px] text-amber-300 italic flex items-center gap-1">
+                🏆 <span>{d.bowl}</span>
+              </div>
+            )}
           </div>
         </div>
       );

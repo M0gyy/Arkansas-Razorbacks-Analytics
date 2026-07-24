@@ -10,13 +10,21 @@ import { GameExplorer } from './components/GameExplorer';
 import { EraComparison } from './components/EraComparison';
 import { SituationalSplits } from './components/SituationalSplits';
 import { EpaSimulator } from './components/EpaSimulator';
-import { AiAnalystDrawer } from './components/AiAnalystDrawer';
+import { PlayerEpaLeaders } from './components/PlayerEpaLeaders';
+import { ConferenceRankings } from './components/ConferenceRankings';
+import { SeasonComparisonView } from './components/SeasonComparisonView';
+import { WeeklySyncModal } from './components/WeeklySyncModal';
 
 export default function App() {
   const [selectedSeason, setSelectedSeason] = useState<number | 'ALL'>('ALL');
   const [selectedUnit, setSelectedUnit] = useState<UnitType>('net');
-  const [activeTab, setActiveTab] = useState<'overview' | 'games' | 'eras' | 'simulator' | 'situational'>('overview');
-  const [isAiDrawerOpen, setIsAiDrawerOpen] = useState(false);
+  const [activeTab, setActiveTab] = useState<'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences'>('overview');
+  const [isSyncModalOpen, setIsSyncModalOpen] = useState(false);
+
+  // Compare mode state
+  const [isCompareMode, setIsCompareMode] = useState<boolean>(false);
+  const [compareSeasonA, setCompareSeasonA] = useState<string | number>(2024);
+  const [compareSeasonB, setCompareSeasonB] = useState<string | number>('2024-SEC');
 
   const availableSeasons = RAZORBACKS_SEASONS.map((s) => s.season);
 
@@ -27,11 +35,17 @@ export default function App() {
       <Header
         selectedSeason={selectedSeason}
         onSelectSeason={setSelectedSeason}
+        isCompareMode={isCompareMode}
+        onToggleCompareMode={() => setIsCompareMode(!isCompareMode)}
+        compareSeasonA={compareSeasonA}
+        compareSeasonB={compareSeasonB}
+        onSelectCompareSeasonA={setCompareSeasonA}
+        onSelectCompareSeasonB={setCompareSeasonB}
         selectedUnit={selectedUnit}
         onSelectUnit={setSelectedUnit}
         activeTab={activeTab}
         onSelectTab={setActiveTab}
-        onOpenAiDrawer={() => setIsAiDrawerOpen(true)}
+        onOpenSyncModal={() => setIsSyncModalOpen(true)}
         availableSeasons={availableSeasons}
       />
 
@@ -44,9 +58,29 @@ export default function App() {
           selectedSeason={selectedSeason}
         />
 
+        {/* Season Comparison Overlay (Renders when Compare Mode is toggled ON) */}
+        {isCompareMode && (
+          <SeasonComparisonView
+            seasons={RAZORBACKS_SEASONS}
+            seasonA={compareSeasonA}
+            seasonB={compareSeasonB}
+            selectedUnit={selectedUnit}
+            onSelectSeasonA={setCompareSeasonA}
+            onSelectSeasonB={setCompareSeasonB}
+            availableSeasons={availableSeasons}
+          />
+        )}
+
         {/* Tab 1: Trends & Visual Overview */}
         {activeTab === 'overview' && (
           <div className="space-y-6">
+            {!isCompareMode && (
+              <PlayerEpaLeaders
+                selectedSeason={selectedSeason}
+                onSelectSeason={setSelectedSeason}
+              />
+            )}
+
             <YearlyTrendChart
               seasons={RAZORBACKS_SEASONS}
               selectedUnit={selectedUnit}
@@ -75,6 +109,22 @@ export default function App() {
           </div>
         )}
 
+        {/* Tab: Conference EPA Leaderboards */}
+        {activeTab === 'conferences' && (
+          <ConferenceRankings
+            availableSeasons={availableSeasons}
+            defaultSeason={selectedSeason === 'ALL' ? 2024 : selectedSeason}
+          />
+        )}
+
+        {/* Tab: Player Leaders */}
+        {activeTab === 'players' && (
+          <PlayerEpaLeaders
+            selectedSeason={selectedSeason}
+            onSelectSeason={setSelectedSeason}
+          />
+        )}
+
         {/* Tab 2: Game Explorer */}
         {activeTab === 'games' && (
           <GameExplorer
@@ -100,12 +150,10 @@ export default function App() {
 
       </main>
 
-      {/* AI Assistant Drawer */}
-      <AiAnalystDrawer
-        isOpen={isAiDrawerOpen}
-        onClose={() => setIsAiDrawerOpen(false)}
-        selectedSeason={selectedSeason}
-        seasons={RAZORBACKS_SEASONS}
+      {/* Weekly Data Sync Modal */}
+      <WeeklySyncModal
+        isOpen={isSyncModalOpen}
+        onClose={() => setIsSyncModalOpen(false)}
       />
 
       {/* Footer */}
