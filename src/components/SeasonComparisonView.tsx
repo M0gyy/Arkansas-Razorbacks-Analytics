@@ -372,11 +372,11 @@ export const SeasonComparisonView: React.FC<SeasonComparisonViewProps> = ({
       <div className="mt-6">
         <h3 className="text-sm font-bold text-white mb-3 flex items-center space-x-2">
           <Trophy className="w-4 h-4 text-amber-400" />
-          <span>Head-to-Head Comparison Summary</span>
+          <span>Head-to-Head Comparison Summary (Advanced & Traditional)</span>
         </h3>
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-3">
-          {/* Record & Coach */}
+          {/* Record & Profile */}
           <div className="bg-neutral-950 p-3.5 rounded-xl border border-neutral-800">
             <div className="text-[11px] font-medium text-neutral-400 uppercase tracking-wider">Record & Profile</div>
             
@@ -399,80 +399,203 @@ export const SeasonComparisonView: React.FC<SeasonComparisonViewProps> = ({
             </div>
           </div>
 
-          {/* Offense EPA */}
+          {/* Offense EPA & Points Per Game */}
           <div className="bg-neutral-950 p-3.5 rounded-xl border border-neutral-800">
             <div className="text-[11px] font-medium text-emerald-400 uppercase tracking-wider flex items-center justify-between">
-              <span>Offense EPA / Play</span>
+              <span>Scoring & Offense EPA</span>
               <Zap className="w-3.5 h-3.5" />
             </div>
 
             <div className="mt-2 space-y-2 text-xs">
               <div className="flex justify-between items-center pb-1.5 border-b border-neutral-900">
                 <span className="font-bold text-neutral-300 truncate max-w-[110px]">{seasonAData.displayName.split(' ')[0]}:</span>
-                <span className={`font-mono font-bold text-sm ${getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'A' ? 'text-emerald-400 font-black' : 'text-neutral-300'}`}>
-                  +{seasonAData.offenseEpaPerPlay.toFixed(3)}
-                  {getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'A' && ' 👑'}
-                </span>
+                <div className="text-right font-mono">
+                  <div className={`font-bold text-sm ${getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'A' ? 'text-emerald-400' : 'text-neutral-300'}`}>
+                    +{seasonAData.offenseEpaPerPlay.toFixed(3)} EPA {getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'A' && '👑'}
+                  </div>
+                  <div className="text-[10px] text-neutral-400">
+                    {(seasonAData.pointsPerGame || 28.0).toFixed(1)} PPG • {(seasonAData.totalYardsPerGame || 400).toFixed(0)} YPG
+                  </div>
+                </div>
               </div>
 
               <div className="flex justify-between items-center">
                 <span className="font-bold text-neutral-300 truncate max-w-[110px]">{seasonBData.displayName.split(' ')[0]}:</span>
-                <span className={`font-mono font-bold text-sm ${getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'B' ? 'text-emerald-400 font-black' : 'text-neutral-300'}`}>
-                  +{seasonBData.offenseEpaPerPlay.toFixed(3)}
-                  {getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'B' && ' 👑'}
-                </span>
+                <div className="text-right font-mono">
+                  <div className={`font-bold text-sm ${getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'B' ? 'text-emerald-400' : 'text-neutral-300'}`}>
+                    +{seasonBData.offenseEpaPerPlay.toFixed(3)} EPA {getBetter(seasonAData.offenseEpaPerPlay, seasonBData.offenseEpaPerPlay) === 'B' && '👑'}
+                  </div>
+                  <div className="text-[10px] text-neutral-400">
+                    {(seasonBData.pointsPerGame || 28.0).toFixed(1)} PPG • {(seasonBData.totalYardsPerGame || 400).toFixed(0)} YPG
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Defense EPA */}
+          {/* Defense EPA & Points Allowed */}
           <div className="bg-neutral-950 p-3.5 rounded-xl border border-neutral-800">
             <div className="text-[11px] font-medium text-amber-400 uppercase tracking-wider flex items-center justify-between">
-              <span>Defense EPA Allowed</span>
+              <span>Defense EPA & Points Allowed</span>
               <Shield className="w-3.5 h-3.5" />
             </div>
 
             <div className="mt-2 space-y-2 text-xs">
               <div className="flex justify-between items-center pb-1.5 border-b border-neutral-900">
                 <span className="font-bold text-neutral-300 truncate max-w-[110px]">{seasonAData.displayName.split(' ')[0]}:</span>
-                <span className={`font-mono font-bold text-sm ${getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'A' ? 'text-emerald-400 font-black' : 'text-neutral-300'}`}>
-                  {seasonAData.defenseEpaPerPlay > 0 ? `+${seasonAData.defenseEpaPerPlay.toFixed(3)}` : seasonAData.defenseEpaPerPlay.toFixed(3)}
-                  {getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'A' && ' 👑'}
-                </span>
+                <div className="text-right font-mono">
+                  <div className={`font-bold text-sm ${getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'A' ? 'text-emerald-400' : 'text-neutral-300'}`}>
+                    {seasonAData.defenseEpaPerPlay > 0 ? `+${seasonAData.defenseEpaPerPlay.toFixed(3)}` : seasonAData.defenseEpaPerPlay.toFixed(3)} EPA {getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'A' && '👑'}
+                  </div>
+                  <div className="text-[10px] text-neutral-400">
+                    {(seasonAData.defensivePointsPerGame || 28.0).toFixed(1)} Opp PPG • {(seasonAData.defensiveTotalYardsPerGame || 400).toFixed(0)} Opp YPG
+                  </div>
+                </div>
               </div>
 
               <div className="flex justify-between items-center">
                 <span className="font-bold text-neutral-300 truncate max-w-[110px]">{seasonBData.displayName.split(' ')[0]}:</span>
-                <span className={`font-mono font-bold text-sm ${getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'B' ? 'text-emerald-400 font-black' : 'text-neutral-300'}`}>
-                  {seasonBData.defenseEpaPerPlay > 0 ? `+${seasonBData.defenseEpaPerPlay.toFixed(3)}` : seasonBData.defenseEpaPerPlay.toFixed(3)}
-                  {getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'B' && ' 👑'}
-                </span>
+                <div className="text-right font-mono">
+                  <div className={`font-bold text-sm ${getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'B' ? 'text-emerald-400' : 'text-neutral-300'}`}>
+                    {seasonBData.defenseEpaPerPlay > 0 ? `+${seasonBData.defenseEpaPerPlay.toFixed(3)}` : seasonBData.defenseEpaPerPlay.toFixed(3)} EPA {getBetter(seasonAData.defenseEpaPerPlay, seasonBData.defenseEpaPerPlay, true) === 'B' && '👑'}
+                  </div>
+                  <div className="text-[10px] text-neutral-400">
+                    {(seasonBData.defensivePointsPerGame || 28.0).toFixed(1)} Opp PPG • {(seasonBData.defensiveTotalYardsPerGame || 400).toFixed(0)} Opp YPG
+                  </div>
+                </div>
               </div>
             </div>
           </div>
 
-          {/* Net EPA */}
+          {/* Traditional 3rd Down & Net EPA */}
           <div className="bg-neutral-950 p-3.5 rounded-xl border border-neutral-800">
             <div className="text-[11px] font-medium text-red-400 uppercase tracking-wider flex items-center justify-between">
-              <span>Net Total EPA / Play</span>
+              <span>3rd Down % & Net Margin</span>
               <Target className="w-3.5 h-3.5" />
             </div>
 
             <div className="mt-2 space-y-2 text-xs">
               <div className="flex justify-between items-center pb-1.5 border-b border-neutral-900">
                 <span className="font-bold text-neutral-300 truncate max-w-[110px]">{seasonAData.displayName.split(' ')[0]}:</span>
-                <span className={`font-mono font-bold text-sm ${getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'A' ? 'text-emerald-400 font-black' : 'text-neutral-300'}`}>
-                  {seasonAData.netEpaPerPlay > 0 ? `+${seasonAData.netEpaPerPlay.toFixed(3)}` : seasonAData.netEpaPerPlay.toFixed(3)}
-                  {getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'A' && ' 👑'}
-                </span>
+                <div className="text-right font-mono">
+                  <div className={`font-bold text-sm ${getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'A' ? 'text-emerald-400' : 'text-neutral-300'}`}>
+                    {seasonAData.netEpaPerPlay > 0 ? `+${seasonAData.netEpaPerPlay.toFixed(3)}` : seasonAData.netEpaPerPlay.toFixed(3)} Net EPA {getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'A' && '👑'}
+                  </div>
+                  <div className="text-[10px] text-neutral-400">
+                    {(seasonAData.thirdDownConvPct || 40.0).toFixed(1)}% 3rd Conv • TO: {seasonAData.turnoverMargin > 0 ? `+${seasonAData.turnoverMargin}` : seasonAData.turnoverMargin}
+                  </div>
+                </div>
               </div>
 
               <div className="flex justify-between items-center">
                 <span className="font-bold text-neutral-300 truncate max-w-[110px]">{seasonBData.displayName.split(' ')[0]}:</span>
-                <span className={`font-mono font-bold text-sm ${getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'B' ? 'text-emerald-400 font-black' : 'text-neutral-300'}`}>
-                  {seasonBData.netEpaPerPlay > 0 ? `+${seasonBData.netEpaPerPlay.toFixed(3)}` : seasonBData.netEpaPerPlay.toFixed(3)}
-                  {getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'B' && ' 👑'}
-                </span>
+                <div className="text-right font-mono">
+                  <div className={`font-bold text-sm ${getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'B' ? 'text-emerald-400' : 'text-neutral-300'}`}>
+                    {seasonBData.netEpaPerPlay > 0 ? `+${seasonBData.netEpaPerPlay.toFixed(3)}` : seasonBData.netEpaPerPlay.toFixed(3)} Net EPA {getBetter(seasonAData.netEpaPerPlay, seasonBData.netEpaPerPlay) === 'B' && '👑'}
+                  </div>
+                  <div className="text-[10px] text-neutral-400">
+                    {(seasonBData.thirdDownConvPct || 40.0).toFixed(1)}% 3rd Conv • TO: {seasonBData.turnoverMargin > 0 ? `+${seasonBData.turnoverMargin}` : seasonBData.turnoverMargin}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Advanced Passing Metrics (CPOE, YPRR, Clean vs Pressure, Air Yards) */}
+          <div className="bg-neutral-950 p-3.5 rounded-xl border border-neutral-800 md:col-span-2 lg:col-span-4">
+            <div className="text-[11px] font-medium text-sky-400 uppercase tracking-wider flex items-center justify-between pb-2 border-b border-neutral-900">
+              <span className="flex items-center gap-1.5 font-bold">
+                <Target className="w-3.5 h-3.5 text-sky-400" />
+                Advanced Passing Efficiency (CPOE, YPRR, Passer Rating Clean vs Pressure, Air Yards)
+              </span>
+              <span className="text-[10px] bg-sky-950 text-sky-300 px-2 py-0.5 rounded border border-sky-800 font-semibold">
+                Advanced Analytics Standards
+              </span>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 mt-3 text-xs">
+              {/* CPOE Comparison */}
+              <div className="bg-neutral-900 p-2.5 rounded-lg border border-neutral-800">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase block mb-1">CPOE (Accuracy)</span>
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-red-400 font-bold">
+                    Opt A: {(seasonAData.cpoe ?? 0) >= 0 ? `+${(seasonAData.cpoe ?? 0).toFixed(1)}%` : `${(seasonAData.cpoe ?? 0).toFixed(1)}%`}
+                  </span>
+                  <span className="text-cyan-400 font-bold">
+                    Opt B: {(seasonBData.cpoe ?? 0) >= 0 ? `+${(seasonBData.cpoe ?? 0).toFixed(1)}%` : `${(seasonBData.cpoe ?? 0).toFixed(1)}%`}
+                  </span>
+                </div>
+              </div>
+
+              {/* YPRR Comparison */}
+              <div className="bg-neutral-900 p-2.5 rounded-lg border border-neutral-800">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase block mb-1">Yards / Route Run (YPRR)</span>
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-red-400 font-bold">
+                    Opt A: {(seasonAData.yardsPerRouteRun ?? 2.1).toFixed(2)} YPRR
+                  </span>
+                  <span className="text-cyan-400 font-bold">
+                    Opt B: {(seasonBData.yardsPerRouteRun ?? 2.1).toFixed(2)} YPRR
+                  </span>
+                </div>
+              </div>
+
+              {/* Clean vs Pressure Passer Rating */}
+              <div className="bg-neutral-900 p-2.5 rounded-lg border border-neutral-800">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase block mb-1">Passer Rating (Clean / Pressure)</span>
+                <div className="text-[11px] font-mono space-y-0.5">
+                  <div className="flex justify-between text-red-400 font-bold">
+                    <span>Opt A:</span>
+                    <span>{(seasonAData.passerRatingClean ?? 145).toFixed(1)} / {(seasonAData.passerRatingPressure ?? 85).toFixed(1)}</span>
+                  </div>
+                  <div className="flex justify-between text-cyan-400 font-bold">
+                    <span>Opt B:</span>
+                    <span>{(seasonBData.passerRatingClean ?? 145).toFixed(1)} / {(seasonBData.passerRatingPressure ?? 85).toFixed(1)}</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Air Yards & aDOT Comparison */}
+              <div className="bg-neutral-900 p-2.5 rounded-lg border border-neutral-800">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase block mb-1">Air Yards (aDOT / Total)</span>
+                <div className="flex items-center justify-between text-xs font-mono">
+                  <span className="text-red-400 font-bold">
+                    Opt A: {(seasonAData.airYardsPerAttempt ?? 8.8).toFixed(1)}y ({seasonAData.totalAirYards ?? 2500})
+                  </span>
+                  <span className="text-cyan-400 font-bold">
+                    Opt B: {(seasonBData.airYardsPerAttempt ?? 8.8).toFixed(1)}y ({seasonBData.totalAirYards ?? 2500})
+                  </span>
+                </div>
+              </div>
+
+              {/* Pass Rush Win Rate & Pressure Rate Comparison */}
+              <div className="bg-neutral-900 p-2.5 rounded-lg border border-neutral-800">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase block mb-1">Pass Rush Win % & Pressure Rate</span>
+                <div className="text-[11px] font-mono space-y-0.5">
+                  <div className="flex justify-between text-red-400 font-bold">
+                    <span>Opt A:</span>
+                    <span>{(seasonAData.passRushWinRate ?? 38.0).toFixed(1)}% Win • {(seasonAData.pressureRateGenerated ?? 35.0).toFixed(1)}% Press</span>
+                  </div>
+                  <div className="flex justify-between text-cyan-400 font-bold">
+                    <span>Opt B:</span>
+                    <span>{(seasonBData.passRushWinRate ?? 38.0).toFixed(1)}% Win • {(seasonBData.pressureRateGenerated ?? 35.0).toFixed(1)}% Press</span>
+                  </div>
+                </div>
+              </div>
+
+              {/* Coverage Disruption & INTs / PBUs */}
+              <div className="bg-neutral-900 p-2.5 rounded-lg border border-neutral-800 sm:col-span-2 lg:col-span-1">
+                <span className="text-[10px] font-semibold text-neutral-400 uppercase block mb-1">Coverage Disruption & INTs / PBUs</span>
+                <div className="text-[11px] font-mono space-y-0.5">
+                  <div className="flex justify-between text-red-400 font-bold">
+                    <span>Opt A:</span>
+                    <span>{(seasonAData.coverageDisruptionRate ?? 12.5).toFixed(1)}% Disruption • {seasonAData.interceptionsCount ?? 11} INT / {seasonAData.passBreakupsCount ?? 48} PBU</span>
+                  </div>
+                  <div className="flex justify-between text-cyan-400 font-bold">
+                    <span>Opt B:</span>
+                    <span>{(seasonBData.coverageDisruptionRate ?? 12.5).toFixed(1)}% Disruption • {seasonBData.interceptionsCount ?? 11} INT / {seasonBData.passBreakupsCount ?? 48} PBU</span>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

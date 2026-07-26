@@ -25,13 +25,56 @@ export interface GameData {
   opportunityRate: number; // % of rushing plays gaining >= 4 yards (higher is better for offense)
   defensiveStuffRate: number; // % of opponent rushing plays stuffed at/behind LOS (higher is better)
   defensiveOpportunityRate: number; // % of opponent rushing plays gaining >= 4 yards allowed (lower is better)
-  pffOverallGrade?: number;
-  pffOffenseGrade?: number;
-  pffDefenseGrade?: number;
-  pffSpecialTeamsGrade?: number;
+  overallGrade?: number;
+  offenseGrade?: number;
+  defenseGrade?: number;
+  specialTeamsGrade?: number;
   dvoaTotalPct?: number;
   dvoaOffensePct?: number;
   dvoaDefensePct?: number;
+  // Advanced Passing & Receiving Metrics
+  cpoe?: number; // Completion Percentage Over Expected (+/- %)
+  epaCpoeComposite?: number; // EPA + CPOE Composite score/index
+  yardsPerRouteRun?: number; // YPRR for receivers/offense
+  passerRatingClean?: number; // Passer rating with clean pocket
+  passerRatingPressure?: number; // Passer rating under pass rush pressure
+  airYardsPerAttempt?: number; // Average Depth of Target (aDOT) in yards
+  totalAirYards?: number; // Total intended air yards
+  pressureRateAllowed?: number; // % of offensive dropbacks resulting in QB pressure
+  pressureRateGenerated?: number; // % of defensive dropbacks generating pressure
+  passRushWinRate?: number; // Pass Rush Win Rate % (PRWR)
+  runStopWinRate?: number; // Run Stop Win Rate % (RSWR)
+  passBlockWinRate?: number; // Pass Block Win Rate % (PBWR)
+  receiverSeparation?: number; // Receiver Separation at catch point (yards)
+  targetSeparation?: number; // Target Separation when targeted (yards)
+  burnRate?: number; // Coverage Burn Rate %
+  coverageEpaPerPlay?: number; // Coverage EPA Per Play Allowed
+  ryoePerCarry?: number; // Rush Yards Over Expected Per Carry
+  totalRyoe?: number; // Total Rush Yards Over Expected
+  yardsAfterContactPerAttempt?: number; // Yards After Contact Per Attempt
+  coverageDisruptionRate?: number; // Coverage Disruption & Forced Incompleteness Rate %
+  interceptionsCount?: number; // Total Interceptions
+  passBreakupsCount?: number; // Total Pass Breakups (PBUs)
+  // Traditional Game Statistics
+  passingYards?: number;
+  rushingYards?: number;
+  totalYards?: number;
+  oppPassingYards?: number;
+  oppRushingYards?: number;
+  oppTotalYards?: number;
+  firstDowns?: number;
+  oppFirstDowns?: number;
+  thirdDowns?: string;
+  oppThirdDowns?: string;
+  fourthDowns?: string;
+  turnoversGiven?: number;
+  turnoversTaken?: number;
+  penaltiesYards?: string;
+  timeOfPossession?: string;
+  sacksRecorded?: number;
+  sacksAllowed?: number;
+  completionCount?: number;
+  attemptCount?: number;
   notes?: string;
 }
 
@@ -73,19 +116,61 @@ export interface SeasonData {
   aggressivenessIndex?: number; // 4th Down Aggressiveness Index (1.00 = FBS avg)
   fourthDownGoRate?: number; // % of 4th & short/go-situations attempted
   fourthDownSuccessRate?: number; // % converted on 4th down attempts
-  pffOverallGrade?: number; // Overall PFF Team Grade (0-100)
-  pffOffenseGrade?: number; // Offense PFF Grade (0-100)
-  pffDefenseGrade?: number; // Defense PFF Grade (0-100)
-  pffSpecialTeamsGrade?: number; // Special Teams PFF Grade (0-100)
-  pffPassBlockingGrade?: number; // Pass Blocking PFF Grade (0-100)
-  pffRunBlockingGrade?: number; // Run Blocking PFF Grade (0-100)
-  pffCoverageGrade?: number; // Coverage PFF Grade (0-100)
-  pffPassRushGrade?: number; // Pass Rush PFF Grade (0-100)
+  overallGrade?: number; // Overall Team Grade (0-100)
+  offenseGrade?: number; // Offense Grade (0-100)
+  defenseGrade?: number; // Defense Grade (0-100)
+  specialTeamsGrade?: number; // Special Teams Grade (0-100)
+  passBlockingGrade?: number; // Pass Blocking Grade (0-100)
+  runBlockingGrade?: number; // Run Blocking Grade (0-100)
+  coverageGrade?: number; // Coverage Grade (0-100)
+  passRushGrade?: number; // Pass Rush Grade (0-100)
   dvoaTotalPct?: number; // Total DVOA % relative to FBS average
   dvoaOffensePct?: number; // Offense DVOA %
   dvoaDefensePct?: number; // Defense DVOA % (negative is better for defense)
   dvoaSpecialTeamsPct?: number; // Special Teams DVOA %
   dvoaNationalRank?: number; // National DVOA Rank (e.g. #14)
+  // Advanced Passing, Receiving & Defense Metrics
+  cpoe?: number; // Completion Percentage Over Expected (+/- %)
+  epaCpoeComposite?: number; // EPA + CPOE Composite Index/Score
+  yardsPerRouteRun?: number; // Yards Per Route Run (YPRR) for team's top receivers
+  passerRatingClean?: number; // Clean Pocket Passer Rating
+  passerRatingPressure?: number; // Under Pressure Passer Rating
+  airYardsPerAttempt?: number; // Average Depth of Target (aDOT) in yards
+  totalAirYards?: number; // Total intended air yards
+  pressureRateAllowed?: number; // % of offensive dropbacks resulting in QB pressure
+  pressureRateGenerated?: number; // % of defensive dropbacks generating pressure
+  passRushWinRate?: number; // Pass Rush Win Rate % (PRWR)
+  runStopWinRate?: number; // Run Stop Win Rate % (RSWR)
+  passBlockWinRate?: number; // Pass Block Win Rate % (PBWR)
+  receiverSeparation?: number; // Receiver Separation at catch point (yards)
+  targetSeparation?: number; // Target Separation when targeted (yards)
+  burnRate?: number; // Coverage Burn Rate %
+  coverageEpaPerPlay?: number; // Coverage EPA Per Play Allowed
+  ryoePerCarry?: number; // Rush Yards Over Expected Per Carry
+  totalRyoe?: number; // Total Rush Yards Over Expected
+  yardsAfterContactPerAttempt?: number; // Yards After Contact Per Attempt
+  coverageDisruptionRate?: number; // Coverage Disruption & Forced Incompleteness Rate %
+  interceptionsCount?: number; // Total Interceptions
+  passBreakupsCount?: number; // Total Pass Breakups (PBUs)
+  // Traditional Season Statistics
+  pointsPerGame?: number;
+  defensivePointsPerGame?: number;
+  totalYardsPerGame?: number;
+  defensiveTotalYardsPerGame?: number;
+  oppPassingYardsPerGame?: number;
+  oppRushingYardsPerGame?: number;
+  yardsPerPlay?: number;
+  oppYardsPerPlay?: number;
+  thirdDownConvPct?: number;
+  oppThirdDownConvPct?: number;
+  fourthDownConvPct?: number;
+  redZoneTdPct?: number;
+  sacksPerGame?: number;
+  sacksAllowedPerGame?: number;
+  turnoversLostPerGame?: number;
+  turnoversGainedPerGame?: number;
+  timeOfPossession?: string;
+  completionPct?: number;
   games: GameData[];
 }
 
@@ -110,12 +195,19 @@ export interface EraSummary {
   aggressivenessIndex?: number;
   fourthDownGoRate?: number;
   fourthDownSuccessRate?: number;
-  avgPffOverallGrade?: number;
-  avgPffOffenseGrade?: number;
-  avgPffDefenseGrade?: number;
+  avgOverallGrade?: number;
+  avgOffenseGrade?: number;
+  avgDefenseGrade?: number;
   avgDvoaTotalPct?: number;
   avgDvoaOffensePct?: number;
   avgDvoaDefensePct?: number;
+  avgPPG?: number;
+  avgOppPPG?: number;
+  avgTotalYPG?: number;
+  avgOppTotalYPG?: number;
+  avgYardsPerPlay?: number;
+  avgThirdDownPct?: number;
+  avgSacksPerGame?: number;
   highlightSeason: number;
   description: string;
 }
@@ -157,6 +249,26 @@ export interface PlayerEpaLeader {
   highlights: string[];
   headshotUrl?: string;
   fieldZones?: FieldZoneData[];
+  cpoe?: number; // CPOE (+/- %)
+  epaCpoeComposite?: number; // EPA + CPOE Composite Index
+  yardsPerRouteRun?: number; // YPRR for receivers/TEs
+  passerRatingClean?: number; // Clean Pocket Passer Rating for QBs
+  passerRatingPressure?: number; // Under Pressure Passer Rating for QBs
+  airYardsPerAttempt?: number; // Average Depth of Target (aDOT) in yards
+  totalAirYards?: number; // Total Intended Air Yards
+  pressureRate?: number; // Pressure Rate % (allowed for QB / generated for pass rusher)
+  passRushWinRate?: number; // Pass Rush Win Rate % (PRWR)
+  runStopWinRate?: number; // Run Stop Win Rate % (RSWR)
+  passBlockWinRate?: number; // Pass Block Win Rate % (PBWR)
+  receiverSeparation?: number; // Receiver Separation (yards)
+  targetSeparation?: number; // Target Separation (yards)
+  burnRate?: number; // Burn Rate %
+  coverageEpaPerPlay?: number; // Coverage EPA Allowed
+  ryoePerCarry?: number; // RYOE / Carry
+  yardsAfterContactPerAttempt?: number; // Yards After Contact / Attempt
+  coverageDisruptionRate?: number; // Coverage Disruption & Forced Incompleteness Rate %
+  interceptionsCount?: number; // Total Interceptions
+  passBreakupsCount?: number; // Total Pass Breakups (PBUs)
 }
 
 export interface AiChatMessage {

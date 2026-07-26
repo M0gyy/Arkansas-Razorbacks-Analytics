@@ -1,4 +1,5 @@
 import React, { useState, useMemo } from 'react';
+import { TeamLogo } from './TeamLogo';
 import {
   getConferenceEpaData,
   getConferenceAverages,
@@ -203,7 +204,7 @@ export const ConferenceRankings: React.FC<ConferenceRankingsProps> = ({
         {arkansasTeam && (
           <div className="mt-4 bg-neutral-950 p-3.5 rounded-xl border border-red-900/60 flex flex-wrap items-center justify-between gap-3 text-xs">
             <div className="flex items-center space-x-3">
-              <span className="text-3xl">🐗</span>
+              <span className="text-3xl inline-block -scale-x-100">🐗</span>
               <div>
                 <div className="flex items-center space-x-2">
                   <span className="font-extrabold text-white text-sm">Arkansas Razorbacks ({arkansasTeam.record})</span>
@@ -466,7 +467,7 @@ export const ConferenceRankings: React.FC<ConferenceRankingsProps> = ({
                       {/* Team Name */}
                       <td className="py-3 px-4">
                         <div className="flex items-center space-x-2">
-                          <span className="text-base">{team.logo}</span>
+                          <TeamLogo teamName={team.teamName} fallbackEmoji={team.logo} size="xs" />
                           <div>
                             <div className="flex items-center space-x-1.5">
                               <span className={`font-bold ${isArk ? 'text-red-400 font-extrabold text-sm' : 'text-white'}`}>
