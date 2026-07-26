@@ -387,6 +387,54 @@ export const PlayerEpaLeaders: React.FC<PlayerEpaLeadersProps> = ({
                     <div className="text-sm font-bold text-neutral-100 mt-0.5">{player.keyStat}</div>
                   </div>
 
+                  {/* Advanced Metrics Badges if present */}
+                  {(player.cpoe !== undefined || player.yardsPerRouteRun !== undefined || player.passerRatingClean !== undefined || player.airYardsPerAttempt !== undefined || player.passRushWinRate !== undefined || player.coverageDisruptionRate !== undefined) && (
+                    <div className="mt-2.5 grid grid-cols-2 gap-1.5 text-[11px] font-mono bg-neutral-900/60 p-2 rounded-lg border border-neutral-800">
+                      {player.cpoe !== undefined && player.cpoe !== 0 && (
+                        <div>
+                          <span className="text-neutral-500 block text-[9px] uppercase font-sans">CPOE</span>
+                          <span className="text-emerald-400 font-bold">{player.cpoe > 0 ? `+${player.cpoe}%` : `${player.cpoe}%`}</span>
+                        </div>
+                      )}
+                      {player.yardsPerRouteRun !== undefined && player.yardsPerRouteRun > 0 && (
+                        <div>
+                          <span className="text-neutral-500 block text-[9px] uppercase font-sans">YPRR</span>
+                          <span className="text-amber-300 font-bold">{player.yardsPerRouteRun} YPRR</span>
+                        </div>
+                      )}
+                      {player.passerRatingClean !== undefined && (
+                        <div>
+                          <span className="text-neutral-500 block text-[9px] uppercase font-sans">Clean / Pressure</span>
+                          <span className="text-sky-300 font-bold">{player.passerRatingClean} / {player.passerRatingPressure}</span>
+                        </div>
+                      )}
+                      {player.airYardsPerAttempt !== undefined && (
+                        <div>
+                          <span className="text-neutral-500 block text-[9px] uppercase font-sans">aDOT / Air Yds</span>
+                          <span className="text-purple-300 font-bold">{player.airYardsPerAttempt}y ({player.totalAirYards})</span>
+                        </div>
+                      )}
+                      {player.passRushWinRate !== undefined && (
+                        <div>
+                          <span className="text-neutral-500 block text-[9px] uppercase font-sans">Pass Rush Win %</span>
+                          <span className="text-amber-400 font-bold">{player.passRushWinRate}% ({player.pressureRate}% Press)</span>
+                        </div>
+                      )}
+                      {player.coverageDisruptionRate !== undefined && (
+                        <div>
+                          <span className="text-neutral-500 block text-[9px] uppercase font-sans">Cov Disruption</span>
+                          <span className="text-red-400 font-bold">{player.coverageDisruptionRate}% Rate</span>
+                        </div>
+                      )}
+                      {(player.interceptionsCount !== undefined || player.passBreakupsCount !== undefined) && (
+                        <div>
+                          <span className="text-neutral-500 block text-[9px] uppercase font-sans">INTs / PBUs</span>
+                          <span className="text-emerald-400 font-bold">{player.interceptionsCount ?? 0} INT / {player.passBreakupsCount ?? 0} PBU</span>
+                        </div>
+                      )}
+                    </div>
+                  )}
+
                   {/* Highlight Quote / Note */}
                   <p className="text-sm text-neutral-300 mt-3 line-clamp-2 italic">
                     "{player.highlights[0]}"
@@ -555,6 +603,42 @@ export const PlayerEpaLeaders: React.FC<PlayerEpaLeadersProps> = ({
               <div className="text-xs font-bold text-red-400 uppercase tracking-wide">Season Stat Summary</div>
               <p className="text-sm font-semibold text-white mt-1">{selectedPlayer.keyStat}</p>
             </div>
+
+            {/* Advanced Passing / Receiving Metrics Breakdown if present */}
+            {(selectedPlayer.cpoe !== undefined || selectedPlayer.yardsPerRouteRun !== undefined || selectedPlayer.passerRatingClean !== undefined || selectedPlayer.airYardsPerAttempt !== undefined) && (
+              <div className="mt-3 bg-neutral-950 p-3 rounded-xl border border-neutral-800">
+                <div className="text-xs font-bold text-sky-400 uppercase tracking-wide mb-2 flex items-center justify-between">
+                  <span>Advanced Analytics</span>
+                  <span className="text-[10px] text-neutral-400 font-normal">Tracking Data</span>
+                </div>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 text-xs font-mono">
+                  {selectedPlayer.cpoe !== undefined && (
+                    <div className="bg-neutral-900 p-2 rounded-lg border border-neutral-800">
+                      <div className="text-[10px] text-neutral-400 uppercase font-sans">CPOE</div>
+                      <div className="text-sm font-bold text-emerald-400">{selectedPlayer.cpoe > 0 ? `+${selectedPlayer.cpoe}%` : `${selectedPlayer.cpoe}%`}</div>
+                    </div>
+                  )}
+                  {selectedPlayer.yardsPerRouteRun !== undefined && (
+                    <div className="bg-neutral-900 p-2 rounded-lg border border-neutral-800">
+                      <div className="text-[10px] text-neutral-400 uppercase font-sans">YPRR</div>
+                      <div className="text-sm font-bold text-amber-300">{selectedPlayer.yardsPerRouteRun} Yds</div>
+                    </div>
+                  )}
+                  {selectedPlayer.passerRatingClean !== undefined && (
+                    <div className="bg-neutral-900 p-2 rounded-lg border border-neutral-800">
+                      <div className="text-[10px] text-neutral-400 uppercase font-sans">Clean / Pressure</div>
+                      <div className="text-sm font-bold text-sky-300">{selectedPlayer.passerRatingClean} / {selectedPlayer.passerRatingPressure}</div>
+                    </div>
+                  )}
+                  {selectedPlayer.airYardsPerAttempt !== undefined && (
+                    <div className="bg-neutral-900 p-2 rounded-lg border border-neutral-800">
+                      <div className="text-[10px] text-neutral-400 uppercase font-sans">aDOT / Air Yds</div>
+                      <div className="text-sm font-bold text-purple-300">{selectedPlayer.airYardsPerAttempt}y ({selectedPlayer.totalAirYards})</div>
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
 
             {/* Signature Game Performance */}
             <div className="mt-3 bg-neutral-950 p-3 rounded-xl border border-neutral-800">

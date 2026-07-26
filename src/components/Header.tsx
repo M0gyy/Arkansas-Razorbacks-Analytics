@@ -1,6 +1,6 @@
 import React from 'react';
 import { UnitType } from '../types';
-import { Flame, BarChart3, Calculator, Bot, Calendar, Sparkles, Trophy, ArrowLeftRight, RefreshCw, Globe } from 'lucide-react';
+import { Flame, BarChart3, Calculator, Bot, Calendar, Trophy, ArrowLeftRight, Globe } from 'lucide-react';
 
 interface HeaderProps {
   selectedSeason: number | 'ALL';
@@ -16,7 +16,6 @@ interface HeaderProps {
   activeTab: 'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences';
   onSelectTab: (tab: 'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences') => void;
   onOpenAiDrawer?: () => void;
-  onOpenSyncModal: () => void;
   availableSeasons: number[];
 }
 
@@ -33,8 +32,6 @@ export const Header: React.FC<HeaderProps> = ({
   onSelectUnit,
   activeTab,
   onSelectTab,
-  onOpenAiDrawer,
-  onOpenSyncModal,
   availableSeasons
 }) => {
   return (
@@ -43,22 +40,27 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between py-3.5 gap-3.5">
           
           {/* Brand Logo & Title */}
-          <div className="flex items-center space-x-3">
-            <div className="w-12 h-12 rounded-2xl bg-[#9D2235] flex items-center justify-center text-white font-bold shadow-md ring-2 ring-red-700/50">
-              <span className="text-2xl">🐗</span>
+          <div className="flex items-center space-x-3.5">
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[#9D2235] flex items-center justify-center text-white font-bold shadow-lg ring-2 ring-red-700/60 shrink-0">
+              <span className="text-3xl sm:text-4xl inline-block -scale-x-100">🐗</span>
             </div>
             <div>
-              <div className="flex items-center space-x-2">
-                <h1 className="text-xl font-extrabold tracking-tight text-white">
+              <div className="flex flex-wrap items-center gap-2.5">
+                <h1 className="text-2xl sm:text-3xl lg:text-4xl font-black tracking-tight text-white leading-tight">
                   Arkansas Razorbacks <span className="text-red-500">Advanced Metrics</span>
                 </h1>
-                <span className="bg-neutral-800 text-neutral-300 text-xs font-bold px-2 py-0.5 rounded border border-neutral-700">
-                  2014 – 2025
+                <span className="bg-neutral-800 text-neutral-200 text-xs sm:text-sm font-bold px-2.5 py-1 rounded-md border border-neutral-700 shadow-sm">
+                  2014–present
                 </span>
               </div>
-              <p className="text-xs sm:text-sm text-neutral-400">
-                Expected Points Added Analytics • Play-by-Play Efficiency Engine
-              </p>
+              <div className="flex flex-wrap items-center gap-2 text-xs sm:text-sm text-neutral-400 mt-1">
+                <span>Expected Points Added Analytics • Play-by-Play Efficiency Engine</span>
+                <span className="text-neutral-600 hidden sm:inline">•</span>
+                <span className="text-emerald-400 text-xs font-semibold inline-flex items-center gap-1.5 bg-emerald-950/60 px-2 py-0.5 rounded border border-emerald-800/50">
+                  <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse"></span>
+                  <span>Data updated each week on Sundays</span>
+                </span>
+              </div>
             </div>
           </div>
 
@@ -168,17 +170,6 @@ export const Header: React.FC<HeaderProps> = ({
                 </div>
               </div>
             )}
-
-            {/* Weekly Data Sync Button */}
-            <button
-              onClick={onOpenSyncModal}
-              className="flex items-center space-x-1.5 bg-neutral-800 hover:bg-neutral-700 text-neutral-200 text-sm font-semibold px-3 py-1.5 rounded-lg transition-all border border-neutral-700 cursor-pointer"
-              title="Weekly Data Sync Status & Data Updates"
-            >
-              <RefreshCw className="w-4 h-4 text-emerald-400" />
-              <span className="hidden sm:inline">Weekly Data Sync</span>
-              <span className="w-2 h-2 rounded-full bg-emerald-400"></span>
-            </button>
           </div>
         </div>
 
@@ -197,18 +188,6 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <BarChart3 className="w-4 h-4" />
               <span>Trends & Overview</span>
-            </button>
-
-            <button
-              onClick={() => onSelectTab('conferences')}
-              className={`px-3.5 py-1.5 rounded-lg text-sm font-bold whitespace-nowrap transition-colors flex items-center space-x-2 ${
-                activeTab === 'conferences'
-                  ? 'bg-red-800 text-white shadow-sm'
-                  : 'text-neutral-400 hover:text-white hover:bg-neutral-800/80'
-              }`}
-            >
-              <Globe className="w-4 h-4 text-amber-400" />
-              <span>Conference EPA</span>
             </button>
 
             <button
@@ -270,44 +249,19 @@ export const Header: React.FC<HeaderProps> = ({
               <Calculator className="w-4 h-4" />
               <span>EPA Simulator</span>
             </button>
+
+            <button
+              onClick={() => onSelectTab('conferences')}
+              className={`px-3.5 py-1.5 rounded-lg text-sm font-bold whitespace-nowrap transition-colors flex items-center space-x-2 ${
+                activeTab === 'conferences'
+                  ? 'bg-red-800 text-white shadow-sm'
+                  : 'text-neutral-400 hover:text-white hover:bg-neutral-800/80'
+              }`}
+            >
+              <Globe className="w-4 h-4 text-amber-400" />
+              <span>Conference</span>
+            </button>
           </nav>
-
-          {/* Unit Filters */}
-          <div className="flex items-center space-x-1 bg-neutral-950 p-1 rounded-lg border border-neutral-800 text-xs font-medium">
-            <button
-              onClick={() => onSelectUnit('net')}
-              className={`px-3 py-1 rounded-md text-xs transition-all ${
-                selectedUnit === 'net' ? 'bg-neutral-800 text-white font-bold' : 'text-neutral-400 hover:text-neutral-200'
-              }`}
-            >
-              Net Total
-            </button>
-            <button
-              onClick={() => onSelectUnit('offense')}
-              className={`px-3 py-1 rounded-md text-xs transition-all ${
-                selectedUnit === 'offense' ? 'bg-emerald-950 text-emerald-300 font-bold border border-emerald-800/60' : 'text-neutral-400 hover:text-neutral-200'
-              }`}
-            >
-              Offense
-            </button>
-            <button
-              onClick={() => onSelectUnit('defense')}
-              className={`px-3 py-1 rounded-md text-xs transition-all ${
-                selectedUnit === 'defense' ? 'bg-amber-950 text-amber-300 font-bold border border-amber-800/60' : 'text-neutral-400 hover:text-neutral-200'
-              }`}
-            >
-              Defense
-            </button>
-            <button
-              onClick={() => onSelectUnit('special_teams')}
-              className={`px-3 py-1 rounded-md text-xs transition-all ${
-                selectedUnit === 'special_teams' ? 'bg-sky-950 text-sky-300 font-bold border border-sky-800/60' : 'text-neutral-400 hover:text-neutral-200'
-              }`}
-            >
-              Spec. Teams
-            </button>
-          </div>
-
         </div>
       </div>
     </header>

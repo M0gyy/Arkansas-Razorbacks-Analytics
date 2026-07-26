@@ -28,6 +28,8 @@ export const EraComparison: React.FC = () => {
     totalDefAYPct: number;
     totalDefExplosivePct: number;
     totalDefStuffRate: number;
+    totalPassRushWinRate: number;
+    totalCoverageDisruption: number;
     gamesCount: number;
   }> = {};
 
@@ -71,6 +73,8 @@ export const EraComparison: React.FC = () => {
         totalDefAYPct: 0,
         totalDefExplosivePct: 0,
         totalDefStuffRate: 0,
+        totalPassRushWinRate: 0,
+        totalCoverageDisruption: 0,
         gamesCount: 0
       };
     }
@@ -80,6 +84,8 @@ export const EraComparison: React.FC = () => {
     dcMap[dc].totalDefAYPct += s.defensiveAvailableYardsPct ?? 45.0;
     dcMap[dc].totalDefExplosivePct += s.defensiveExplosivePlayPct ?? 12.0;
     dcMap[dc].totalDefStuffRate += s.defensiveStuffRate;
+    dcMap[dc].totalPassRushWinRate += s.passRushWinRate ?? 37.0;
+    dcMap[dc].totalCoverageDisruption += s.coverageDisruptionRate ?? 12.0;
     dcMap[dc].gamesCount += s.games.length;
   });
 
@@ -115,6 +121,8 @@ export const EraComparison: React.FC = () => {
       avgDefAYPct: data.totalDefAYPct / count,
       avgDefExplosivePct: data.totalDefExplosivePct / count,
       avgDefStuffRate: data.totalDefStuffRate / count,
+      avgPassRushWinRate: data.totalPassRushWinRate / count,
+      avgCoverageDisruption: data.totalCoverageDisruption / count,
       gamesCount: data.gamesCount
     };
   }).sort((a, b) => a.avgDefPPD - b.avgDefPPD); // Lower defensive PPD allowed is better!
@@ -528,8 +536,9 @@ export const EraComparison: React.FC = () => {
                   <th className="pb-2 font-semibold">Defensive Coordinator</th>
                   <th className="pb-2 font-semibold">Tenure</th>
                   <th className="pb-2 font-semibold text-right">Points/Drive Allowed</th>
+                  <th className="pb-2 font-semibold text-right">Pass Rush Win %</th>
+                  <th className="pb-2 font-semibold text-right">Coverage Disrupt %</th>
                   <th className="pb-2 font-semibold text-right">AY% Allowed</th>
-                  <th className="pb-2 font-semibold text-right">Explosive % Allowed</th>
                   <th className="pb-2 font-semibold text-right">Stuff Rate %</th>
                   <th className="pb-2 font-semibold text-right">Defense EPA Allowed</th>
                   <th className="pb-2 font-semibold text-right">Defensive Rating</th>
@@ -549,14 +558,19 @@ export const EraComparison: React.FC = () => {
                       {item.avgDefPPD.toFixed(2)} pts
                     </td>
 
+                    {/* Pass Rush Win % */}
+                    <td className="py-2.5 text-right font-mono font-bold text-sky-300">
+                      {item.avgPassRushWinRate.toFixed(1)}%
+                    </td>
+
+                    {/* Coverage Disruption % */}
+                    <td className="py-2.5 text-right font-mono font-bold text-red-400">
+                      {item.avgCoverageDisruption.toFixed(1)}%
+                    </td>
+
                     {/* AY % Allowed */}
                     <td className="py-2.5 text-right font-mono font-bold text-emerald-300">
                       {item.avgDefAYPct.toFixed(1)}%
-                    </td>
-
-                    {/* Explosive Allowed % */}
-                    <td className="py-2.5 text-right font-mono font-bold text-rose-300">
-                      {item.avgDefExplosivePct.toFixed(1)}%
                     </td>
 
                     {/* Stuff Rate % */}

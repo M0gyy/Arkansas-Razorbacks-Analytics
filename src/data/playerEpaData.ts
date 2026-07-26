@@ -101,6 +101,12 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 54.2,
     keyStat: '3,440 Pass Yds, 30 TD, 8 INT, 166.5 Rating',
     bestGame: 'vs Ole Miss (53-52 W): 442 Pass Yds, 6 TD, +0.680 EPA/play',
+    cpoe: 6.8,
+    yardsPerRouteRun: 0,
+    passerRatingClean: 172.4,
+    passerRatingPressure: 114.8,
+    airYardsPerAttempt: 9.8,
+    totalAirYards: 3370,
     highlights: [
       'Led the entire SEC in passing efficiency (166.5) and QBR (83.8)',
       'Set school record with 7 passing touchdowns vs Mississippi State',
@@ -120,6 +126,10 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 58.8,
     keyStat: '66 Rec, 1,104 Yds, 11 TD, 16.7 YPR',
     bestGame: 'vs Alabama (35-42 L): 8 Rec, 179 Yds, 2 TD, +0.720 EPA/target',
+    cpoe: 0,
+    yardsPerRouteRun: 3.57,
+    airYardsPerAttempt: 11.4,
+    totalAirYards: 1180,
     highlights: [
       'First-Team All-SEC and 1st Round NFL Draft selection (Tennessee Titans)',
       'Generated +42.8 total expected points added on target catches',
@@ -139,6 +149,11 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 51.6,
     keyStat: '2,676 Pass Yds, 21 TD, 4 INT, 664 Rush Yds, 6 TD',
     bestGame: 'vs Ole Miss (51-52 L): 326 Pass Yds, 3 TD, 85 Rush Yds, 3 TD',
+    cpoe: 5.4,
+    passerRatingClean: 165.2,
+    passerRatingPressure: 119.8,
+    airYardsPerAttempt: 9.9,
+    totalAirYards: 2890,
     highlights: [
       'Led Arkansas to 9-4 record and Outback Bowl victory over Penn State',
       'Averaged +0.342 EPA per dropback on 3rd down conversions',
@@ -177,6 +192,9 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 64.7,
     keyStat: '51 Rec, 739 Yds, 3 TD, 0 Drops',
     bestGame: 'vs LSU (31-14 W): 5 Rec, 52 Yds, 100% catch rate on 3rd down',
+    yardsPerRouteRun: 2.48,
+    airYardsPerAttempt: 9.1,
+    totalAirYards: 610,
     highlights: [
       'John Mackey Award Winner (Nation\'s Top Tight End) & Consensus All-American',
       'Zero dropped passes on 51 catchable targets all season',
@@ -234,6 +252,11 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 48.5,
     keyStat: '2,892 Pass Yds, 15 TD, 563 Rush Yds, 6 TD',
     bestGame: 'vs Tennessee (19-14 W): 219 Pass Yds, 82 Rush Yds, +0.280 EPA/play',
+    cpoe: 2.8,
+    passerRatingClean: 158.4,
+    passerRatingPressure: 96.8,
+    airYardsPerAttempt: 9.5,
+    totalAirYards: 3180,
     highlights: [
       'Led upset over #4 Tennessee at Razorback Stadium',
       'Dual-threat dynamic under OC Bobby Petrino',
@@ -255,6 +278,9 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 72.5,
     keyStat: '15.5 TFL, 6.0 Sacks, 68 Tackles, 9 QB Hurries',
     bestGame: 'vs Texas (31-7 W): 2.0 TFL, 1 Sack, held UT to 59 total yards',
+    passRushWinRate: 24.8,
+    pressureRate: 18.5,
+    passBreakupsCount: 3,
     highlights: [
       'Second-Team All-American & 1st Team All-SEC defensive end',
       'Anchor of 2014 defense that recorded back-to-back SEC shutouts vs LSU (17-0) & Ole Miss (30-0)',
@@ -274,6 +300,9 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 69.5,
     keyStat: '128 Tackles (SEC Leader), 10.5 TFL, 2 INT, 2 FF',
     bestGame: 'vs Ole Miss (30-0 W): 11 Tackles, 1 INT, 1 FF in shutout victory',
+    coverageDisruptionRate: 14.2,
+    interceptionsCount: 2,
+    passBreakupsCount: 5,
     highlights: [
       'First-Team All-SEC and Consensus All-SEC linebacker',
       'Led the entire Southeastern Conference in total tackles (128)',
@@ -293,6 +322,8 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 66.4,
     keyStat: '125 Tackles, 7.5 TFL, 2 Pass Breakups',
     bestGame: 'vs Texas A&M (20-10 W): 8 Tackles, 1.5 TFL, key 4th quarter goal-line stop',
+    coverageDisruptionRate: 10.8,
+    passBreakupsCount: 2,
     highlights: [
       'All-Time Arkansas Razorbacks Tackle Leader (441 Career Tackles)',
       'Second-Team All-SEC honors in 2021',
@@ -312,6 +343,9 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 70.2,
     keyStat: '99 Tackles, 3 INT, 2 Forced Fumbles, 1 Pick-6',
     bestGame: 'vs Ole Miss (33-21 W): 9 Tackles, 1 INT Pick-6 return for TD',
+    coverageDisruptionRate: 21.5,
+    interceptionsCount: 3,
+    passBreakupsCount: 8,
     highlights: [
       'FWAA Freshman All-American & First-Team All-SEC (Phil Steele)',
       'First SEC freshman safety with 90+ tackles and 3+ interceptions since 2005',
@@ -331,6 +365,9 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 68.2,
     keyStat: '13.5 TFL, 6.5 Sacks, 44 Pressures, 44 Tackles',
     bestGame: 'vs Alabama (21-24 L): 3.5 Sacks, 4.5 TFL, dominated Crimson Tide O-Line',
+    passRushWinRate: 22.4,
+    pressureRate: 19.8,
+    passBreakupsCount: 2,
     highlights: [
       'First-Team All-SEC defensive lineman',
       '3.5 sacks vs Alabama was the most by an opponent against Alabama since 2014',
@@ -350,6 +387,9 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 67.5,
     keyStat: '5 INT (Co-SEC Leader), 54 Tackles, 6 Pass Breakups',
     bestGame: 'vs Penn State (24-10 W): 1 INT in end zone, 6 tackles in Outback Bowl',
+    coverageDisruptionRate: 26.8,
+    interceptionsCount: 5,
+    passBreakupsCount: 6,
     highlights: [
       'First-Team All-SEC cornerback',
       'Co-led SEC in interceptions (5)',
@@ -369,6 +409,8 @@ const RAW_PLAYER_EPA_LEADERS: any[] = [
     successRate: 68.0,
     keyStat: '6.0 Sacks, 6.5 TFL, 28 QB Pressures',
     bestGame: 'vs Texas A&M (20-10 W): 2.0 Sacks, 4 QB Hurries',
+    passRushWinRate: 21.6,
+    pressureRate: 17.4,
     highlights: [
       'Transfer edge rusher who transformed Barry Odom\'s 3-man front',
       'Highest pass-rush win percentage on 3rd-and-long in 2021 SEC play'
