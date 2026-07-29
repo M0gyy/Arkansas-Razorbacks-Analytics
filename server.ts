@@ -2,6 +2,7 @@ import express from 'express';
 import path from 'path';
 import { GoogleGenAI } from '@google/genai';
 import dotenv from 'dotenv';
+import departuresRouter from './routes/departures';
 
 dotenv.config();
 
@@ -9,6 +10,10 @@ const app = express();
 const PORT = Number(process.env.PORT) || 3000;
 
 app.use(express.json());
+
+// Departures API routes
+app.use('/api/v1/departures', departuresRouter);
+app.use('/api/departures', departuresRouter);
 
 // Lazy Gemini AI setup
 let aiClient: GoogleGenAI | null = null;

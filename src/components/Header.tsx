@@ -1,6 +1,6 @@
 import React from 'react';
 import { UnitType } from '../types';
-import { Flame, BarChart3, Calculator, Bot, Calendar, Trophy, ArrowLeftRight, Globe } from 'lucide-react';
+import { Flame, BarChart3, Calculator, Bot, Calendar, Trophy, ArrowLeftRight, Globe, UserMinus } from 'lucide-react';
 
 interface HeaderProps {
   selectedSeason: number | 'ALL';
@@ -13,8 +13,8 @@ interface HeaderProps {
   onSelectCompareSeasonB: (season: string | number) => void;
   selectedUnit: UnitType;
   onSelectUnit: (unit: UnitType) => void;
-  activeTab: 'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences';
-  onSelectTab: (tab: 'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences') => void;
+  activeTab: 'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences' | 'departures';
+  onSelectTab: (tab: 'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences' | 'departures') => void;
   onOpenAiDrawer?: () => void;
   availableSeasons: number[];
 }
@@ -260,6 +260,18 @@ export const Header: React.FC<HeaderProps> = ({
             >
               <Globe className="w-4 h-4 text-amber-400" />
               <span>Conference</span>
+            </button>
+
+            <button
+              onClick={() => onSelectTab('departures')}
+              className={`px-3.5 py-1.5 rounded-lg text-sm font-bold whitespace-nowrap transition-colors flex items-center space-x-2 ${
+                activeTab === 'departures'
+                  ? 'bg-red-800 text-white shadow-sm'
+                  : 'text-neutral-400 hover:text-white hover:bg-neutral-800/80'
+              }`}
+            >
+              <UserMinus className="w-4 h-4 text-red-400" />
+              <span>Departures</span>
             </button>
           </nav>
         </div>
