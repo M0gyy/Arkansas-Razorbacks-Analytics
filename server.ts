@@ -140,7 +140,7 @@ Query Type: ${queryType || 'general'}
 Please provide a clear analysis addressing the user's question, highlighting specific EPA per play numbers, offensive/defensive trends, key game turnarounds, or coaching impact where relevant.`;
 
     const response = await genAI.models.generateContent({
-      model: 'gemini-3.6-flash',
+      model: 'gemini-2.0-flash',
       contents: fullPrompt,
       config: {
         systemInstruction,
