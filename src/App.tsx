@@ -13,12 +13,13 @@ import { EpaSimulator } from './components/EpaSimulator';
 import { PlayerEpaLeaders } from './components/PlayerEpaLeaders';
 import { ConferenceRankings } from './components/ConferenceRankings';
 import { SeasonComparisonView } from './components/SeasonComparisonView';
+import { DeparturesView } from './components/DeparturesView';
 import { Calendar } from 'lucide-react';
 
 export default function App() {
   const [selectedSeason, setSelectedSeason] = useState<number | 'ALL'>('ALL');
   const [selectedUnit, setSelectedUnit] = useState<UnitType>('net');
-  const [activeTab, setActiveTab] = useState<'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences'>('overview');
+  const [activeTab, setActiveTab] = useState<'overview' | 'games' | 'eras' | 'simulator' | 'situational' | 'players' | 'conferences' | 'departures'>('overview');
 
   // Compare mode state
   const [isCompareMode, setIsCompareMode] = useState<boolean>(false);
@@ -145,6 +146,14 @@ export default function App() {
 
         {/* Tab 5: EPA Simulator */}
         {activeTab === 'simulator' && <EpaSimulator />}
+
+        {/* Tab 6: Player Departures & Production Lost */}
+        {activeTab === 'departures' && (
+          <DeparturesView
+            selectedSeason={selectedSeason}
+            onSelectSeason={setSelectedSeason}
+          />
+        )}
 
       </main>
 

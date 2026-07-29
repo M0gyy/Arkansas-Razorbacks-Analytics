@@ -1,5 +1,32 @@
 export type UnitType = 'offense' | 'defense' | 'special_teams' | 'net';
 
+export interface PlayerDeparture {
+  id: string;
+  season: number;
+  player_name: string;
+  position: string;
+  class_year?: string;
+  exit_type: string;
+  destination: string;
+  snap_count: number;
+  epa_per_play: number;
+  total_epa_impact: number;
+  success_rate: number;
+  notes: string;
+}
+
+export interface DepartureSeasonSummary {
+  season: number;
+  totalDepartures: number;
+  totalSnaps: number;
+  offEpaLost: number;
+  defEpaLost: number;
+  draftCount: number;
+  portalCount: number;
+  gradCount: number;
+  topPlayerLost: string;
+}
+
 export interface GameData {
   id: string;
   season: number;
